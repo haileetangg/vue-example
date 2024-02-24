@@ -65,3 +65,32 @@ const plugins = {
 作用：让样式在局部生效，防止冲突
 
 写法：<style scoped>
+
+### webStorage
+
+1. 存储大小一般在5M左右，不同浏览器不一样
+2. 浏览器听过window.sessionStorage跟window.localStorage属性来实现本地存储机制
+3. 相关API：
+
+```javascript
+// 该方法接受一个键值作为参数，会把键值对添加到存储中，如果键名存在则更新其对应的值
+xxxxStroage.setItem('key','value')
+// 键名作为参数，返回键名对应的键值
+xxxxStorage.getItem('key')
+// 键名作为参数，删除键值对
+xxxxStorage.removeItem('key')
+// 清空存储中的所有数据
+xxxxStorage.clear()
+
+```
+
+4. 备注：
+
+   1）SessionStroage存储的内容会随着浏览器窗口关闭而消失
+
+   2）LocalStorage存储的内容需要手动清除才会消失
+
+   3）xxxxStorage.getItem(xxx)如果对应的value获取不到，那么getitem的返回值为null
+
+   4）JSON.parse(null)的结果依然是null
+
