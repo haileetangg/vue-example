@@ -32,12 +32,15 @@ export default {
   },
    data(){
       return {
-        todos:[
-          {id:'001',name:'抽烟',done:true},
-          {id:'002',name:'喝酒',done:false},
-          {id:'003',name:'开车',done:true}
-        ]
+        todos:JSON.parse(localStorage.getItem('todos')) || []
       }
+  },
+  watch:{
+    todos:{
+      handler(value){
+        localStorage.setItem('todos',JSON.stringify(value))
+      }
+    }
   },
   methods:{
     addTodo(todoObj){
