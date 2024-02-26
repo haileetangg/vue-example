@@ -6,8 +6,5 @@ import plugins from './plugins'
 Vue.use(plugins)
 
 new Vue({
-  render:h => h(App),
-  beforeCreate(){
-    Vue.prototype.$bus = this
-  }
+  render:h => h(App)
 }).$mount('#app')

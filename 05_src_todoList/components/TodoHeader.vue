@@ -8,6 +8,7 @@
 import {nanoid} from 'nanoid'
 export default {
     name:'TodoHeader',
+    props:['addTodo'],
     methods:{
       add(e){
         if(!e.target.value) return alert('输入不能为空！')
@@ -15,7 +16,7 @@ export default {
         const todoObj = {id:nanoid(),name:e.target.value,done:false}
         console.log(todoObj,'todoObj')
         //通知App组件去添加一个todo
-        this.$emit('addTodo',todoObj)
+        this.addTodo(todoObj)
         //清空输入
         e.target.value = ''
       }

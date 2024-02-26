@@ -6,6 +6,8 @@
           />
           <TodoList 
             :todos="todos" 
+            :checkTodo="checkTodo"
+            :deleteTodo="deleteTodo"
           />
           <TodoFooter 
             :todos="todos" 
@@ -76,13 +78,6 @@ export default {
         return !todo.done
       })
     }
-  },
-  mounted(){
-    this.$bus.$on('checkTodo',this.checkTodo)
-    this.$bus.$on('deleteTodo',this.deleteTodo)
-  },
-  beforeDestroy(){
-    this.$bus.$off(['checkTodo','deleteTodo'])
   }
 }
 

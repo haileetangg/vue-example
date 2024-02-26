@@ -2,15 +2,17 @@
       <div class='todo-container'>
         <div class='todo-wrap'>
           <TodoHeader 
-            @addTodo="addTodo"
+            :addTodo="addTodo"
           />
           <TodoList 
             :todos="todos" 
+            :checkTodo="checkTodo"
+            :deleteTodo="deleteTodo"
           />
           <TodoFooter 
             :todos="todos" 
-            @checkAllTodo="checkAllTodo"
-            @clearAllTodo="clearAllTodo"
+            :checkAllTodo="checkAllTodo"
+            :clearAllTodo="clearAllTodo"
           />
         </div>
       </div>
@@ -76,13 +78,6 @@ export default {
         return !todo.done
       })
     }
-  },
-  mounted(){
-    this.$bus.$on('checkTodo',this.checkTodo)
-    this.$bus.$on('deleteTodo',this.deleteTodo)
-  },
-  beforeDestroy(){
-    this.$bus.$off(['checkTodo','deleteTodo'])
   }
 }
 

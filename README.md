@@ -121,3 +121,66 @@ mounted(){
 5. 解绑自定义事件：this.$off('showHailee')
 6. 组件上可以绑定原生DOM事件，需要使用native修饰符
 7. 注意：通过this.$refs.xxx.$on('showHailee',回调)绑定自定义事件时，回调要么配置在methods中，要么使用箭头函数，否则this指向会出问题！
+
+### 全局事件总线（GlobalEventBus）
+
+1. 一种组件间通信的方式，适用于任意组件间通信
+2. 安装全局事件总线：
+
+```javascript
+new Vue({
+  ....
+  beforeCreated(){
+    Vue.prototype.$bus = this //安装全局事件总线，$bus就是当前应用的vm
+  }
+  ....
+})
+```
+
+3. 使用事件总线：
+
+​	1）接收数据：A组件想接收数据，则在A组件中给$bus绑定自定义事件，事件的回调留在A组件自身
+
+```javascript
+methods(){
+  demo(data){......}
+}
+....
+mounted(){
+  this.$bus.$on('xxx',this.demo)
+}
+```
+
+​    2）提供数据：this.$bus.$emit('xxx',数据)
+
+4. 最好在beforeDestory钩子中，用$off去解绑当前组件所用到的事件
+
+### 消息订阅与发布
+
+1. 一种组件间通信的方式，适用于任意组件间通信
+2. 使用步骤：
+
+   1）安装pubsub：npm i pubsub-js
+
+   2）引入：import pubsub from 'pubsub-js'
+
+3. 接收数据：A组件想接收数据，则在A组件中订阅消息，订阅的回调留在A组件中
+
+```javascript
+methods(){
+  demo(data){......}
+}
+......
+mounted(){
+  this.pid = pubsub.subscribe('xxx',this.demo)//订阅消息
+}
+```
+
+4. 提供数据：pubsub.publish('xxx',数据)
+5. 最好在beforeDestroy钩子中，用PubSub.unscribe(pid)去取消订阅
+
+### nextTick
+
+1. 语法：this.$nextTick(回调函数)
+2. 作用：在下一次DOM更新结束后执行其指定回调
+3. 什么时候用：当改变数据后，要基于更新后的新DOM进行某些操作时，要在nextTick所指定的回调函数中执行

@@ -17,18 +17,16 @@
 <script>
 export default {
   name:'TodoItem',
-  props:['todoObj'],
+  props:['todoObj','checkTodo','deleteTodo'],
   methods:{
     handleCheck(id){
       //通知App组件将对应的todoObj对象的done值取反
-      // this.checkTodo(id)
-      this.$bus.$emit('checkTodo',id)
+      this.checkTodo(id)
     },
     handleDelete(id){
       if(confirm('确认删除吗？')){
         console.log(id)
-        // this.deleteTodo(id)
-        this.$bus.$emit('deleteTodo',id)
+        this.deleteTodo(id)
       }
     }
   }
